@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.5</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.ocrengine</groupId>
+  <artifactId>ocr-engine</artifactId>
+  <version>1.0.0</version>
+  <name>OCR Enterprise Document Engine</name>
+  <description>Enterprise OCR-Driven Document Summarization Engine — Hackathon 2026 P2</description>
+
+  <properties>
+    <java.version>21</java.version>
+    <tess4j.version>5.11.0</tess4j.version>
+    <pdfbox.version>3.0.2</pdfbox.version>
+  </properties>
+
+  <dependencies>
+
+    <!-- ── Spring Boot (Required by problem statement) ──────────────── -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <!-- ── Tesseract OCR via Tess4J (Required by problem statement) ─── -->
+    <!-- Tess4J is the official Java JNA wrapper around Tesseract OCR.   -->
+    <!-- The actual OCR engine IS Tesseract — same engine, Java bindings. -->
+    <dependency>
+      <groupId>net.sourceforge.tess4j</groupId>
+      <artifactId>tess4j</artifactId>
+      <version>${tess4j.version}</version>
+    </dependency>
+
+    <!-- ── Apache PDFBox (Pure Java PDF renderer — no AI) ───────────── -->
+    <!-- Used to render scanned PDF pages as images at 300 DPI           -->
+    <!-- so Tesseract can OCR them. No text extraction AI involved.      -->
+    <dependency>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>pdfbox</artifactId>
+      <version>${pdfbox.version}</version>
+    </dependency>
+
+    <!-- ── Lombok (Compile-time code generation utility) ────────────── -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- ── Jackson (Standard Java JSON serialization) ───────────────── -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+
+    <!-- ── Commons IO (Standard Apache file utilities) ──────────────── -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.15.1</version>
+    </dependency>
+
+    <!-- ── Spring Boot Test ─────────────────────────────────────────── -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
